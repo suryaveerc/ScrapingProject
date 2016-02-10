@@ -1,23 +1,25 @@
 
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import org.jsoup.Jsoup;
-import org.jsoup.select.Elements;
-import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Document;
 import java.util.HashMap;
 
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by suryaveer on 2016-02-09.
  */
 public class Scrapper {
 
-    Document doc;
-    Map<String, String> appMetaData;
-    Element element;
-    Elements elements;
-    String itempropArray[] = {"ratingValue", "ratingCount", "numDownloads", "datePublished", "operatingSystems", "contentRating"};
-    String value;
+    private Document doc;
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(ParseCSV.class);
+    private Map<String, String> appMetaData;
+    private final String itempropArray[] = {"ratingValue", "ratingCount", "numDownloads", "datePublished", "operatingSystems", "contentRating"};
+    private String value;
 
     public Map<String, String> scrape(String url) {
         try {
@@ -26,46 +28,46 @@ public class Scrapper {
             //metadata = doc.select(key);
 
             value = doc.select("h1.document-title").text().replaceAll(":", "").replaceAll(" ", "_").replaceAll("&", "and").replaceAll("[^\\x00-\\x7F]", "");
-            System.out.println("Title: " + value);
+            logger.debug("Title: {} ", value);
             appMetaData.put("Title", value);
 
             value = doc.select("div.score").text();
-            System.out.println("score: " + value);
+            logger.debug("score: {} ", value);
             appMetaData.put("Rating", value);
 
             value = doc.select("div.rating-bar-container.five > span.bar-number").text();
-            System.out.println("five: " + value);
+            logger.debug("five: {} ", value);
             appMetaData.put("five", value);
 
             value = doc.select("div.rating-bar-container.four > span.bar-number").text();
-            System.out.println("Four: " + value);
+            logger.debug("Four: {} ", value);
             appMetaData.put("Four", value);
 
             value = doc.select("div.rating-bar-container.three > span.bar-number").text();
-            System.out.println("Three: " + value);
+            logger.debug("Three: {} ", value);
             appMetaData.put("Three", value);
 
             value = doc.select("div.rating-bar-container.two > span.bar-number").text();
-            System.out.println("Two: " + value);
+            logger.debug("Two: {} ", value);
             appMetaData.put("Two", value);
 
             value = doc.select("div.rating-bar-container.one > span.bar-number").text();
-            System.out.println("One: " + value);
+            logger.debug("One: {} ", value);
             appMetaData.put("One", value);
 
             value = doc.select("div.details-section-contents.show-more-container").select("div.recent-change").text().replaceAll("[^\\x00-\\x7F]", "");
-            System.out.println("Whats_New: " + value);
+            logger.debug("Whats_New: {} ", value);
             appMetaData.put("Whats_New", value);
-
+//            TODO: Need to format ratings tag.
             String itemPropString;
             for (String itemProp : itempropArray) {
                 itemPropString = String.format("div[itemprop=%s", itemProp, "]");
                 value = doc.select(itemPropString).text();
-                System.out.println("--: " + value);
+                logger.debug("itemProp: {} ", value);
                 appMetaData.put("itemProp", value);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            logger.error("Error while fetching the URL- {}.",url, ex);
         }
         return appMetaData;
     }

@@ -4,8 +4,8 @@ import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.util.Iterator;
 import java.util.Map;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by suryaveer on 2016-02-09.
@@ -15,6 +15,7 @@ public class XMLCreator {
     private static DocumentBuilderFactory docFactory;
     private static DocumentBuilder documentBuilder;
     private static Document doc;
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(XMLCreator.class);
 
     XMLCreator() {
         try {
@@ -25,7 +26,7 @@ public class XMLCreator {
             //           Element rootElement = doc.createElement("Applications");
 //            doc.appendChild(rootElement);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error while creating XML document.", e);
         }
     }
 
@@ -41,10 +42,10 @@ public class XMLCreator {
         Element childRoot = doc.createElement(name);
         Element childLeaf;
         for (Map.Entry<String, String> entry : childRecord.entrySet()) {
-            System.out.println("Name: "+ entry.getKey());
             childLeaf = doc.createElement(entry.getKey());
 
-            System.out.println("Key : " + entry.getKey() + " Value :" + entry.getValue());
+            logger.debug("Key: {} " , entry.getKey());
+            logger.debug("Value: {} " , entry.getValue());
             childLeaf.appendChild(doc.createTextNode(entry.getValue()));
             childRoot.appendChild(childLeaf);
         }
