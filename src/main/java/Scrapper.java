@@ -1,13 +1,9 @@
 
 import java.io.IOException;
-import java.nio.file.FileAlreadyExistsException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import java.util.HashMap;
-
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.slf4j.LoggerFactory;
 
 /**

@@ -2,7 +2,6 @@
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.w3c.dom.Element;
-
 import java.io.*;
 import java.util.Map;
 import org.slf4j.LoggerFactory;
