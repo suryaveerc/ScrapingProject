@@ -1,3 +1,5 @@
+package scrapping.scrapper;
+
 
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -11,12 +13,19 @@ import org.slf4j.LoggerFactory;
  */
 public class ScrapingController {
 
-    private static final String inputFileName = "D:\\Dropbox\\SOEN6461\\Project\\scraping.csv";
-    private static final String outputFileName = "D:\\Dropbox\\SOEN6461\\Project\\scraped.xml";
+    //private static final String inputFileName = "D:\\Dropbox\\SOEN6461\\Project\\scraping.csv";
+    //private static final String outputFileName = "D:\\Dropbox\\SOEN6461\\Project\\scraped.xml";
+    private String inputFileName;
+    private String outputFileName;
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(ScrapingController.class);
     private static Map<String, String> scrappedMap;
 
-    public static void main(String[] args) {
+    public ScrapingController(String inputFileName)
+    {
+        this.inputFileName = inputFileName;
+        this.outputFileName = inputFileName.substring(0, inputFileName.indexOf("."))+".xml";
+    }
+    public String scrape() {
 
         File fileName = new File(inputFileName);
         File scrapedXML = new File(outputFileName);
@@ -43,7 +52,7 @@ public class ScrapingController {
         }
         System.out.println("Complete. Writing XML");
         XMLWriter.writeDocumentToFile(xmlCreator.getDocument(), scrapedXML);
-
+        return "Complete";
     }
 
 }

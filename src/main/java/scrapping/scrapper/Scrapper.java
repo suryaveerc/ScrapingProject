@@ -1,3 +1,5 @@
+package scrapping.scrapper;
+
 
 import java.io.IOException;
 import org.jsoup.Jsoup;
@@ -29,27 +31,27 @@ public class Scrapper {
 
             value = doc.select("div.score").text();
             logger.debug("score: {} ", value);
-            appMetaData.put("Rating", value);
+            appMetaData.put("Average-Rating", value);
 
             value = doc.select("div.rating-bar-container.five > span.bar-number").text();
-            logger.debug("five: {} ", value);
-            appMetaData.put("five", value);
+            logger.debug("Rating-Five: {} ", value);
+            appMetaData.put("Rating-Five", value);
 
             value = doc.select("div.rating-bar-container.four > span.bar-number").text();
-            logger.debug("Four: {} ", value);
-            appMetaData.put("Four", value);
+            logger.debug("Rating-Four: {} ", value);
+            appMetaData.put("Rating-Four", value);
 
             value = doc.select("div.rating-bar-container.three > span.bar-number").text();
-            logger.debug("Three: {} ", value);
-            appMetaData.put("Three", value);
+            logger.debug("Rating-Three: {} ", value);
+            appMetaData.put("Rating-Three", value);
 
             value = doc.select("div.rating-bar-container.two > span.bar-number").text();
-            logger.debug("Two: {} ", value);
-            appMetaData.put("Two", value);
+            logger.debug("Rating-Two: {} ", value);
+            appMetaData.put("Rating-Two", value);
 
             value = doc.select("div.rating-bar-container.one > span.bar-number").text();
-            logger.debug("One: {} ", value);
-            appMetaData.put("One", value);
+            logger.debug("Rating-One: {} ", value);
+            appMetaData.put("Rating-One", value);
 
             value = doc.select("div.details-section-contents.show-more-container").select("div.recent-change").text().replaceAll("[^\\x00-\\x7F]", "");
             logger.debug("Whats_New: {} ", value);
