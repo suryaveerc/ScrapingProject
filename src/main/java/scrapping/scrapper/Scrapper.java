@@ -1,3 +1,5 @@
+package scrapping.scrapper;
+
 
 import java.io.IOException;
 import org.jsoup.Jsoup;
