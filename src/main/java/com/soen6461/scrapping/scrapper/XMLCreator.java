@@ -1,4 +1,4 @@
-package scrapping.scrapper;
+package com.soen6461.scrapping.scrapper;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -51,6 +51,21 @@ public class XMLCreator {
         }
 
         return childRoot;
+    }
+    Element addChildFromMap(Map<String, String> childRecord, Element child) {
+
+        
+        Element childLeaf;
+        for (Map.Entry<String, String> entry : childRecord.entrySet()) {
+            childLeaf = doc.createElement(entry.getKey());
+
+            logger.debug("Key: {} " , entry.getKey());
+            logger.debug("Value: {} " , entry.getValue());
+            childLeaf.appendChild(doc.createTextNode(entry.getValue()));
+            child.appendChild(childLeaf);
+        }
+
+        return child;
     }
     Document getDocument()
     {

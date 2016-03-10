@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package scrapping.ui;
+package com.soen6461.scrapping.ui;
 
 import java.io.File;
 import javax.swing.JDesktopPane;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
-import scrapping.scrapper.ScrapingController;
+import com.soen6461.scrapping.scrapper.ScrapingFacade;
 /**
  *
  * @author khurram
@@ -105,7 +105,7 @@ public class CSVForm extends javax.swing.JInternalFrame {
 
     private void btnStartScrappingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartScrappingActionPerformed
         // TODO add your handling code here:
-        ScrapingController sc  = new ScrapingController(lblFilePath.getText());
+        ScrapingFacade sc  = new ScrapingFacade(lblFilePath.getText());
         this.setVisible(false);
         sc.scrape();
         //BarChart bc = new BarChart();

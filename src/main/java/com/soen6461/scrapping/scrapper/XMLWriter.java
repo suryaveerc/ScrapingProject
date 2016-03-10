@@ -1,4 +1,4 @@
-package scrapping.scrapper;
+package com.soen6461.scrapping.scrapper;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
