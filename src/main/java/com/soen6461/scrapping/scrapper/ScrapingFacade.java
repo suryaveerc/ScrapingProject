@@ -1,4 +1,4 @@
-package scrapping.scrapper;
+package com.soen6461.scrapping.scrapper;
 
 
 import org.apache.commons.csv.CSVParser;
@@ -11,16 +11,16 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by suryaveer on 2016-02-09.
  */
-public class ScrapingController {
+public class ScrapingFacade {
 
     //private static final String inputFileName = "D:\\Dropbox\\SOEN6461\\Project\\scraping.csv";
     //private static final String outputFileName = "D:\\Dropbox\\SOEN6461\\Project\\scraped.xml";
     private String inputFileName;
     private String outputFileName;
-    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(ScrapingController.class);
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(ScrapingFacade.class);
     private static Map<String, String> scrappedMap;
 
-    public ScrapingController(String inputFileName)
+    public ScrapingFacade(String inputFileName)
     {
         this.inputFileName = inputFileName;
         this.outputFileName = inputFileName.substring(0, inputFileName.indexOf("."))+".xml";

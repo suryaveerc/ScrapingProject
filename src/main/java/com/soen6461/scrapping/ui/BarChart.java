@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package scrapping.ui;
+package com.soen6461.scrapping.ui;
 
 import java.awt.Color;
 import java.io.File;

@@ -1,4 +1,4 @@
-package scrapping.scrapper;
+package com.soen6461.scrapping.scrapper;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

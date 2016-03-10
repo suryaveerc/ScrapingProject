@@ -1,4 +1,4 @@
-package scrapping.scrapper;
+package com.soen6461.scrapping.scrapper;
 
 
 import java.io.File;
