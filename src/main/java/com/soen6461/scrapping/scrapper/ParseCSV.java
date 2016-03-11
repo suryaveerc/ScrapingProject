@@ -25,12 +25,14 @@ public class ParseCSV {
 
     ParseCSV() {
 
-        format = CSVFormat.RFC4180.withHeader();
+        
+        format = CSVFormat.RFC4180.withHeader().withDelimiter(';');
 
     }
 
     CSVParser createParser(File fileName) {
         try {
+            
             parser = CSVParser.parse(fileName, Charset.forName("UTF-8"), format);
         } catch (IOException ex) {
             logger.error("Error while creating parser",ex);

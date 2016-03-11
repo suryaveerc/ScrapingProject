@@ -9,6 +9,9 @@ import com.soen6461.analysis.parser.ParseXML;
 import java.io.File;
 import java.util.Map;
 import org.slf4j.LoggerFactory;
+import com.soen6461.models.ScrappedModel;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -18,16 +21,45 @@ public class AnalysisFacade {
 
     private String inputFileName;
     private String outputFileName;
+    private static final AnalysisFacade INSTANCE = new AnalysisFacade();
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(AnalysisFacade.class);
-    private static Map<String, String> scrappedMap;
+    private static HashMap<String, ArrayList<String>> scrappedMap;
+    private HashMap<String, ArrayList<String>> analysisModel;
+    private ScrappedModel scrappedModel;
+//    public AnalysisFacade(String inputFileName) {
+//        this.inputFileName = inputFileName;
+//        this.outputFileName = inputFileName.substring(0, inputFileName.indexOf(".")) + ".xml";
+//    }
 
-    public AnalysisFacade(String inputFileName) {
-        this.inputFileName = inputFileName;
-        this.outputFileName = inputFileName.substring(0, inputFileName.indexOf(".")) + ".xml";
-    }
+//    static {
+//        System.out.println();
+//        AnalysisFacade instance = new AnalysisFacade();
+//    }
 
-    public String analyseData() {
-        ParseXML.parseXMLToMap(new File(inputFileName));
+    public String analyseData(String fileLocation) {
+        inputFileName = fileLocation;
+        analysisModel = ParseXML.parseXML(new File(inputFileName));
+        scrappedModel = new ScrappedModel();
+        scrappedModel.setScrappedData(analysisModel);
+        scrappedModel.getKeys();
         return "Done";
+    }
+    private AnalysisFacade(){}
+    public static AnalysisFacade getInstance() {
+        
+        return INSTANCE;
+    }
+    
+    public ArrayList<String> getAvailableKeys()
+    {
+        return  scrappedModel.getKeys();
+    }
+    public HashMap<String, ArrayList<String>> getScrappedModel()
+    {
+        return  scrappedModel.getScrappedData();
+    }
+    static
+    {
+        System.out.println("Initiaized****************************");
     }
 }

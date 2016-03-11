@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.soen6461.analysis.analyser;
+package com.soen6461.utils;
 
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 public class Utilities {
         private static final org.slf4j.Logger logger = LoggerFactory.getLogger(Utilities.class);
 
-    private static void printHashMap(HashMap<String, Object> map) {
+    public static void printHashMap(HashMap<String, Object> map) {
         for (String key : map.keySet()) {
             logger.debug("{} = {}", key, map.get(key));
             if (map.get(key) instanceof HashMap) {
@@ -25,7 +25,7 @@ public class Utilities {
             }
         }
     }
-     private static ArrayList<String> getAllKeysFromMap(HashMap<String, Object> map) {
+     public static ArrayList<String> getAllKeysFromMap(HashMap<String, Object> map) {
          ArrayList<String> keysList = new ArrayList<>();
         for (String key : map.keySet()) {
             logger.debug("{} = {}", key, map.get(key));

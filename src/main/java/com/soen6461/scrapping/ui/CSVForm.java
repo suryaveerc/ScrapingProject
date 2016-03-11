@@ -5,11 +5,14 @@
  */
 package com.soen6461.scrapping.ui;
 
+import com.soen6461.analysis.AnalysisFacade;
+import com.soen6461.scrapping.scrapper.ScrapingFacade;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.JDesktopPane;
 import javax.swing.JFileChooser;
-import javax.swing.JTextArea;
-import com.soen6461.scrapping.scrapper.ScrapingFacade;
+
 /**
  *
  * @author khurram
@@ -37,6 +40,10 @@ public class CSVForm extends javax.swing.JInternalFrame {
         btn_select_file = new javax.swing.JButton();
         lblFilePath = new javax.swing.JLabel();
         btnStartScrapping = new javax.swing.JButton();
+        jButtonViewXML = new javax.swing.JButton();
+        jButtonViewCSV = new javax.swing.JButton();
+        jButtonSaveXML = new javax.swing.JButton();
+        jButtonStartAnalysis = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -61,6 +68,32 @@ public class CSVForm extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonViewXML.setText("View XML");
+        jButtonViewXML.setEnabled(false);
+        jButtonViewXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonViewXMLActionPerformed(evt);
+            }
+        });
+
+        jButtonViewCSV.setText("View CSV");
+        jButtonViewCSV.setEnabled(false);
+
+        jButtonSaveXML.setText("Save XML");
+        jButtonSaveXML.setEnabled(false);
+        jButtonSaveXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSaveXMLActionPerformed(evt);
+            }
+        });
+
+        jButtonStartAnalysis.setText("Start Analysis");
+        jButtonStartAnalysis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStartAnalysisActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -68,12 +101,18 @@ public class CSVForm extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btn_select_file)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnStartScrapping))
                     .addComponent(jLabel1)
-                    .addComponent(lblFilePath, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblFilePath, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_select_file)
+                            .addComponent(btnStartScrapping)
+                            .addComponent(jButtonSaveXML))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonStartAnalysis)
+                            .addComponent(jButtonViewXML)
+                            .addComponent(jButtonViewCSV))))
                 .addContainerGap(444, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -86,8 +125,16 @@ public class CSVForm extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_select_file)
+                    .addComponent(jButtonViewCSV))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonViewXML)
                     .addComponent(btnStartScrapping))
-                .addContainerGap(359, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonSaveXML)
+                    .addComponent(jButtonStartAnalysis))
+                .addContainerGap(285, Short.MAX_VALUE))
         );
 
         pack();
@@ -95,6 +142,7 @@ public class CSVForm extends javax.swing.JInternalFrame {
 
     private void btn_select_fileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_select_fileActionPerformed
         // TODO add your handling code here:
+        
         JFileChooser c = new JFileChooser();
         c.showOpenDialog(null);
         File f = c.getSelectedFile();
@@ -105,17 +153,52 @@ public class CSVForm extends javax.swing.JInternalFrame {
 
     private void btnStartScrappingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartScrappingActionPerformed
         // TODO add your handling code here:
-        ScrapingFacade sc  = new ScrapingFacade(lblFilePath.getText());
-        this.setVisible(false);
-        sc.scrape();
-        //BarChart bc = new BarChart();
+        ScrapingFacade sc  = ScrapingFacade.getInstance();
+        sc.scrape(lblFilePath.getText());
+        
+        jButtonSaveXML.setEnabled(true);
+        //
         
     }//GEN-LAST:event_btnStartScrappingActionPerformed
+
+    private void jButtonViewXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewXMLActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonViewXMLActionPerformed
+
+    private void jButtonSaveXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveXMLActionPerformed
+        // TODO add your handling code here:
+        JFileChooser c = new JFileChooser();
+        c.showOpenDialog(null);
+        File f = c.getSelectedFile();
+        String filename = f.getAbsolutePath();
+        ScrapingFacade sc  = ScrapingFacade.getInstance();
+        lblFilePath.setText(filename);
+        sc.saveFile(filename);
+    }//GEN-LAST:event_jButtonSaveXMLActionPerformed
+
+    private void jButtonStartAnalysisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartAnalysisActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+       AnalysisFacade facade= AnalysisFacade.getInstance();
+       facade.analyseData(lblFilePath.getText());
+       
+       
+         BarChart bc = new BarChart();
+        JDesktopPane desktopPane = getDesktopPane();
+        desktopPane.add(bc); 
+       
+        //desktopPane.add()
+        bc.setVisible(true);
+    }//GEN-LAST:event_jButtonStartAnalysisActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnStartScrapping;
     private javax.swing.JButton btn_select_file;
+    private javax.swing.JButton jButtonSaveXML;
+    private javax.swing.JButton jButtonStartAnalysis;
+    private javax.swing.JButton jButtonViewCSV;
+    private javax.swing.JButton jButtonViewXML;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblFilePath;

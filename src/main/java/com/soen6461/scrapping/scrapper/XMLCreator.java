@@ -42,10 +42,12 @@ public class XMLCreator {
         Element childRoot = doc.createElement(name);
         Element childLeaf;
         for (Map.Entry<String, String> entry : childRecord.entrySet()) {
-            childLeaf = doc.createElement(entry.getKey());
-
-            logger.debug("Key: {} " , entry.getKey());
+            
+            logger.debug("Key: {} " , entry.getKey().replace(" ", "_"));
             logger.debug("Value: {} " , entry.getValue());
+            childLeaf = doc.createElement(entry.getKey().replace(" ", "_"));
+
+            
             childLeaf.appendChild(doc.createTextNode(entry.getValue()));
             childRoot.appendChild(childLeaf);
         }

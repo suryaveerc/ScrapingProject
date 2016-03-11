@@ -5,19 +5,20 @@
  */
 package com.soen6461.scrapping.ui;
 
+import com.soen6461.analysis.AnalysisFacade;
+import com.soen6461.models.ScrappedModel;
 import java.awt.Color;
-import java.io.File;
-import javax.swing.text.Document;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot;
-import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.*;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
 /**
@@ -29,12 +30,33 @@ public class BarChart extends javax.swing.JInternalFrame {
     /**
      * Creates new form BarChart
      */
+    ArrayList<javax.swing.JCheckBox> checkBoxes;
+    ScrappedModel scrappedModel;
+    HashMap<String, ArrayList<String>> scrappedData;
+    AnalysisFacade analysisFacade;
+
     public BarChart() {
+
         initComponents();
         //JOptionPane.showInputDialog("hello");
-        
-       
-        
+        AnalysisFacade facade = AnalysisFacade.getInstance();
+
+        ArrayList<String> keys = facade.getAvailableKeys();
+
+        Iterator itr = keys.iterator();
+        jPanel1.setLayout(new GridLayout(Math.round(keys.size() / 2) + 1, Math.round(keys.size() / 2) + 1, 4, 4));
+        checkBoxes = new ArrayList<>();
+        while (itr.hasNext()) {
+            //System.out.println(itr.next());
+            String name = (String) itr.next();
+            javax.swing.JCheckBox box = new javax.swing.JCheckBox(name);
+            jPanel1.add(box);
+            box.setName(name);
+            checkBoxes.add(box);
+        }
+        analysisFacade = AnalysisFacade.getInstance();
+        scrappedData = analysisFacade.getScrappedModel();
+
     }
 
     /**
@@ -57,7 +79,7 @@ public class BarChart extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 808, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,48 +146,55 @@ public class BarChart extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_barGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_barGraphActionPerformed
+        ArrayList<ArrayList<String>> selectedCheckBoxes = new ArrayList<>();
+        ArrayList<String> dataPoints = new ArrayList<>();
+        for (javax.swing.JCheckBox cb : checkBoxes) {
+            if (cb.isSelected()) {
+                selectedCheckBoxes.add(scrappedData.get(cb.getName()));
+                dataPoints.add(cb.getName());
+            }
+        }
+       // ArrayList<Integer> applicationParamInteger = new ArrayList<Integer>();
+
+        int size = selectedCheckBoxes.get(0).size();
         // TODO add your handling code here:
-        
-        DefaultCategoryDataset  ds = new DefaultCategoryDataset();
-        ds.setValue(50, "Rating", "Apple");
-        ds.setValue(30, "Rating", "Blackberry");
-        ds.setValue(80, "Rating", "Android");
-        ds.setValue(25, "Rating", "Windows");
-        ds.setValue(20, "Rating", "Simbians");
-        JFreeChart chart = ChartFactory.createBarChart("Analysis", "App Name", "Rating", ds, PlotOrientation.VERTICAL,false,true,false);
+
+        DefaultCategoryDataset ds = new DefaultCategoryDataset();
+        System.out.println(size);
+        for (int k = 0; k < size; k++) {
+            System.out.println(Double.parseDouble(selectedCheckBoxes.get(0).get(k)) + "***");
+            System.out.println(Double.parseDouble(selectedCheckBoxes.get(1).get(k)));
+              ds.setValue(Double.parseDouble(selectedCheckBoxes.get(0).get(k)), "Downloads", selectedCheckBoxes.get(1).get(k));
+        }
+        JFreeChart chart = ChartFactory.createBarChart("Analysis", dataPoints.get(0), dataPoints.get(1), ds, PlotOrientation.VERTICAL, false, true, false);
         CategoryPlot p = chart.getCategoryPlot();
         p.setRangeGridlinePaint(Color.BLACK);
         ChartFrame frame = new ChartFrame("Bar Chart for Apps", chart);
         frame.setVisible(true);
-        frame.setSize(450,350);
-        
+        frame.setSize(450, 350);
+
     }//GEN-LAST:event_btn_barGraphActionPerformed
 
     private void btn_pie_chartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pie_chartActionPerformed
-        // TODO add your handling code here:
-        
-        DefaultPieDataset ds  = new DefaultPieDataset();
-        ds.setValue("Windows",new Integer(10));
-        ds.setValue("Apple",new Integer(30));
-        ds.setValue("Android",new Integer(30));
-        ds.setValue("Simbian",new Integer(20));
-        ds.setValue("Blackberry",new Integer(10));
-        
-        JFreeChart chart = ChartFactory.createPieChart("App Analysis", ds,true,true,true);
-        PiePlot p=(PiePlot)chart.getPlot();
-        /*PiePlot3D p=(PiePlot3D)chart.getPlot();
-        p.setForegroundAlpha(TOP_ALIGNMENT);*/
-        ChartFrame frame = new ChartFrame("Pie Chart",chart);
-        frame.setVisible(true);
-        frame.setSize(450,500);
-        
-        
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_btn_pie_chartActionPerformed
-   
+
+    private void jCheckBoxAppNameActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void jCheckBoxAppRatingActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void jCheckBoxAppScoreActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void jCheckBoxAppFiveStarsActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_barGraph;

@@ -30,13 +30,21 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="btn_select_file" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnStartScrapping" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <Component id="lblFilePath" alignment="0" min="-2" pref="362" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btn_select_file" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnStartScrapping" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonSaveXML" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jButtonStartAnalysis" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonViewXML" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonViewCSV" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
               <EmptySpace pref="444" max="32767" attributes="0"/>
           </Group>
@@ -52,9 +60,19 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btn_select_file" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonViewCSV" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jButtonViewXML" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnStartScrapping" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="359" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jButtonSaveXML" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonStartAnalysis" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="285" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -88,6 +106,38 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStartScrappingActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonViewXML">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="View XML"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonViewXMLActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonViewCSV">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="View CSV"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonSaveXML">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Save XML"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSaveXMLActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonStartAnalysis">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Start Analysis"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonStartAnalysisActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
