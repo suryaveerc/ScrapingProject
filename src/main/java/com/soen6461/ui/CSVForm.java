@@ -3,13 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.soen6461.scrapping.ui;
+package com.soen6461.ui;
 
 import com.soen6461.analysis.AnalysisFacade;
 import com.soen6461.scrapping.scrapper.ScrapingFacade;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
 import javax.swing.JDesktopPane;
 import javax.swing.JFileChooser;
 
@@ -142,7 +140,6 @@ public class CSVForm extends javax.swing.JInternalFrame {
 
     private void btn_select_fileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_select_fileActionPerformed
         // TODO add your handling code here:
-        
         JFileChooser c = new JFileChooser();
         c.showOpenDialog(null);
         File f = c.getSelectedFile();
@@ -154,8 +151,7 @@ public class CSVForm extends javax.swing.JInternalFrame {
     private void btnStartScrappingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartScrappingActionPerformed
         // TODO add your handling code here:
         ScrapingFacade sc  = ScrapingFacade.getInstance();
-        sc.scrape(lblFilePath.getText());
-        
+        sc.scrape(lblFilePath.getText()); 
         jButtonSaveXML.setEnabled(true);
         //
         
@@ -178,19 +174,20 @@ public class CSVForm extends javax.swing.JInternalFrame {
 
     private void jButtonStartAnalysisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartAnalysisActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+       this.setVisible(false);
        AnalysisFacade facade= AnalysisFacade.getInstance();
        facade.analyseData(lblFilePath.getText());
+       //facade.analyseData("C:\\a.xml");
        
        
          BarChart bc = new BarChart();
         JDesktopPane desktopPane = getDesktopPane();
         desktopPane.add(bc); 
-       
+     
         //desktopPane.add()
         bc.setVisible(true);
-    }//GEN-LAST:event_jButtonStartAnalysisActionPerformed
 
+    }//GEN-LAST:event_jButtonStartAnalysisActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnStartScrapping;

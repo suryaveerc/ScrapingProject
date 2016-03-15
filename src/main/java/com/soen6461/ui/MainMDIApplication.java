@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.soen6461.scrapping.ui;
+package com.soen6461.ui;
 
-import com.soen6461.scrapping.ui.CSVForm;
+import com.soen6461.ui.CSVForm;
 
 /**
  *
